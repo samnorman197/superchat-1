@@ -5,7 +5,7 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
-exports.detectEvilUsers = functions.firestore
+exports.handler.detectEvilUsers = functions.firestore
     .document("messages/{msgId}").onCreate(async (doc, ctx) => {
       const filter = new Filter();
       const {text, uid} = doc.data();
