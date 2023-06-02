@@ -4,25 +4,26 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "bad-words": "^3.0.4",
+    "emoji-picker-react": "^4.4.9",
     "firebase": "^9.22.1",
+    "firebase-admin": "^11.9.0",
+    "firebase-functions": "^4.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4",
-    "bad": "^0.10.0",
-    "firebase-admin": "^11.8.0",
-    "firebase-functions": "^4.3.1",
-    "words": "^0.2.1"
+    "web-vitals": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "netlify-dev"
+    "dev": "netlify-dev",
+    "functions": "cd functions/test && yarn install"
   },
   "eslintConfig": {
     "extends": [
@@ -43,9 +44,12 @@
     ]
   },
   "devDependencies": {
-    "netlify-cli":"^15.2.0",
-    "eslint": "^8.15.0",
+    "bad-words": "^3.0.4",
+    "eslint": "^8.41.0",
     "eslint-config-google": "^0.14.0",
-    "firebase-functions-test": "^3.1.0"
+    "firebase-functions-test": "^3.1.0",
+    "netlify-cli": "^15.2.0",
+    "main":"index.js"
   }
+  
 }

@@ -7,7 +7,16 @@ import 'firebase/compat/firestore';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-
+import EmojiPicker, {
+  EmojiStyle,
+  SkinTones,
+  Theme,
+  Categories,
+  EmojiClickData,
+  Emoji,
+  SuggestionMode,
+  SkinTonePickerLocation
+} from "emoji-picker-react";
 
 
 firebase.initializeApp({
@@ -28,6 +37,14 @@ const firestore = firebase.firestore();
 
 function App() {
   const [user] = useAuthState(auth);
+  const [inputStr, setInputStr] = useState('');
+  const [showPicker, setShowPicker] = useState(false);
+ 
+  const onEmojiClick = (event, emojiObject) => {
+    setInputStr(prevInput => prevInput + emojiObject.emoji);
+    setShowPicker(false);
+  };
+
   return (
     <div className="App">
       <header>
@@ -38,6 +55,7 @@ function App() {
         {user ? <ChatRoom /> : <SignIn />}
       </section>
     </div>
+    
   );
 }
 
@@ -70,7 +88,20 @@ function ChatRoom() {
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
+  const [inputStr, setInputStr] = useState('');
+  const [showPicker, setShowPicker] = useState(false);
+  
+ 
+  const onEmojiClick = (event, emojiObject) => {
+    setInputStr(prevInput => prevInput + emojiObject.emoji);
+    setShowPicker(false);
+  };
 
+  const [selectedEmoji, setSelectedEmoji] = useState("");
+
+  function onClick(emojiData, event) {
+    setSelectedEmoji(emojiData.unified)
+  }
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -95,6 +126,11 @@ function ChatRoom() {
     <form onSubmit={sendMessage}>
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
       <button type="submit" disabled={!formValue}>🕊️</button>
+      <img
+          className="emoji-icon"
+          src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
+          onClick={(e) => setFormValue(e.target.value)} />
+        {showPicker && <EmojiPicker onEmojiClick={onClick} autoFocusSearch={false} emojiStyle={EmojiStyle.NATIVE} />}
     </form>
   </>)
 }
@@ -111,5 +147,6 @@ function ChatMessage(props) {
     </div>
   </>)
 }
+
 
 export default App;
